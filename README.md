@@ -78,6 +78,7 @@ Features:
 	},
 ```
 - Add item images in `pan-containers/images` to `ox_inventory/web/images` (delete pan-containers/images folder after if you wish)
+- Add `ensure pan-containers` after all of the dependencies
 
 Languages
 - Place `setr ox:locale en` inside your server.cfg
