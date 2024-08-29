@@ -1,0 +1,11 @@
+{
+    "placement": "Patvirtinkite vietą",
+    "cantPlace": "Negali čia padėti dėl kliūties. Bandyk dar kartą!",
+    "cancelled": "Atšaukta",
+    "player": "Žaidėjas",
+    "inputUi": "[ LMB ] - Patvirtinti \n[ Slinkti ] - Pasukti \n[ Shift ] - Sukti lėčiau \n [ ESC ] - Atšaukti",
+    "label": "Rakto etiketė",
+    "placeholder": "pvz. Saugykla 1",
+    "description": "Galima iki 15 simbolių:",
+    "cheater": "Blogas sukčius!"
+}

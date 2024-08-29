@@ -1,0 +1,11 @@
+{
+    "placement": "Confirmer l'emplacement",
+    "cantPlace": "Je ne peux pas placer ici. Obstruction trouvée. Essayer à nouveau!",
+    "cancelled": "Annulé",
+    "player": "Joueur",
+    "inputUi": "[ LMB ] - Confirmer \n[ Défilement ] - Rotation \n[ Maj ] - Rotation plus lente \n [ ESC ] - Quitter le placement",
+    "label": "Étiquette de clé",
+    "placeholder": "Par exemple: Cache 1",
+    "description": "15 caractères maximum:",
+    "cheater": "Espèce de sale tricheur!"
+}

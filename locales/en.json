@@ -1,0 +1,13 @@
+{
+    "placement": "Confirm placement",
+    "cantPlace": "Can't place here. Obstruction found. Try again!",
+    "cancelled": "Cancelled",
+    "marked": "Placed a waypoint",
+    "unmarked": "Removed waypoint",
+    "player": "Player",
+    "inputUi": "[ LMB ] - Confirm  \n[ Scroll ] - Rotate  \n[ Shift ] - Rotate slower  \n [ ESC ] - Exit Placement",
+    "label": "Key Label",
+    "placeholder": "e.g. Stash 1",
+    "description": "Max 15 characters:",
+    "cheater": "You dirty cheater!"
+}

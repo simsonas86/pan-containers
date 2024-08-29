@@ -1,0 +1,11 @@
+{
+    "placement": "Confirmar ubicación",
+    "cantPlace": "No puedo ubicarlo aquí. Obstrucción encontrada. ¡Intentar otra vez!",
+    "cancelled": "Cancelado",
+    "player": "Jugador",
+    "inputUi": "[ LMB ] - Confirmar \n[ Desplazamiento ] - Girar \n[ Mayús ] - Girar más lento \n [ ESC ] - Salir de la ubicación",
+    "label": "Etiqueta clave",
+    "placeholder": "p.ej. Alijo 1",
+    "description": "Máximo 15 caracteres:",
+    "cheater": "¡Sucio tramposo!"
+}
