@@ -20,7 +20,7 @@ local function spawnContainer(uuid, label, coords, heading, target)
         target = vector3(target.x, target.y, target.z)
     }
     if not ox_inventory:GetInventory('container_'..uuid) then
-        ox_inventory:RegisterStash('container_'..uuid, 'Container', Config.containerSlots, Config.containerWeight, nil, nil, coords)
+        ox_inventory:RegisterStash('container_'..uuid, 'Container', Config.containerSlots, Config.containerWeight, nil, nil, target)
     end
 end
 
@@ -160,9 +160,6 @@ local swapKeyHook = ox_inventory:registerHook('swapItems', function(payload)
     local fromInv = payload.fromInventory
     local toInv = payload.toInventory
     local count = ox_inventory:Search(src, 'count', 'containerkey', metadata)
-    lib.print.info(payload)
-    lib.print.warn('UUID: ' .. 'container_' .. metadata.uuid)
-    lib.print.warn('Inv UUID: ' .. toInv)
     if toInv == 'container_' .. tostring(metadata.uuid) then
         return false
     end
