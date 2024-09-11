@@ -271,7 +271,7 @@ local function dropContainer(cargobob, cargoPed, deliveryContainer)
     DeleteObject(deliveryContainer)
     finalCoords = nil
     finalHeading = nil
-    TriggerServerEvent('pan-containers:server:loadcontainers')
+    TriggerServerEvent('pan-containers:server:loadContainers')
     Wait(2000)
 
     -- Clear up cargobob and ped
@@ -444,7 +444,7 @@ AddEventHandler('pan-containers:client:duplicate', function()
     for _, v in ipairs(uniqueKeys) do
         local key = v
         contextOptions.options[#contextOptions.options+1] = {
-            description = string.format('**%d.** %s', #contextOptions.options, key.metadata.keylabel),
+            description = string.format('%d\\. %s', #contextOptions.options, key.metadata.keylabel),
             onSelect = function()
                 TriggerServerEvent('pan-containers:server:cutNewKey', key.metadata)
             end,
@@ -475,7 +475,7 @@ end)
 
 AddEventHandler('onResourceStart', function(resourceName)
     if (GetCurrentResourceName() ~= resourceName) then return end
-    TriggerServerEvent('pan-containers:server:loadcontainertargets')
+    if not Targets then TriggerServerEvent('pan-containers:server:loadContainerTargets') end
     ox_inventory:displayMetadata('keylabel', 'Label')
 end)
 
