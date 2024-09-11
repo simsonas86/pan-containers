@@ -357,7 +357,7 @@ local function createTarget(data)
             icon = 'fa-solid fa-cube',
             label = 'Open Container',
             onSelect = function()
-                ox_inventory:openInventory('stash', { id = 'container_' .. Entity(NetworkGetEntityFromNetworkId(data.entity)).state.uuid })
+                ox_inventory:openInventory('stash', { id = 'container_' .. Entity(NetworkGetEntityFromNetworkId(data.entity)).state.id })
             end
         }
     }
@@ -422,11 +422,11 @@ end)
 AddEventHandler('pan-containers:client:duplicate', function()
     local slotList = ox_inventory:GetSlotsWithItem('containerkey')
     local uniqueKeys = {}
-    local storedUUIDs = {}
+    local storedIDs = {}
 
     for _, v in ipairs(slotList) do
-        if not table.contains(storedUUIDs, v.metadata.uuid) then
-            storedUUIDs[#storedUUIDs+1] = v.metadata.uuid
+        if not table.contains(storedIDs, v.metadata.id) then
+            storedIDs[#storedIDs+1] = v.metadata.id
             uniqueKeys[#uniqueKeys+1] = v
         end
     end

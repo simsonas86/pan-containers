@@ -3,24 +3,24 @@ local Containers = {}
 
 -- Functions
 
-local function spawnContainer(uuid, label, coords, heading, target)
+local function spawnContainer(id, label, coords, heading, target)
     local container = CreateObjectNoOffset(Config.containerModel, coords.x, coords.y, coords.z, true, true, false) -- Creating the container object
     SetEntityHeading(container, heading)
     FreezeEntityPosition(container, true)
 
     -- Storing container data in entity state
-    Entity(container).state.uuid = uuid
+    Entity(container).state.id = id
     Entity(container).state.label = label
     Entity(container).state.target = target
 
-    Containers[uuid] = {
+    Containers[id] = {
         entity = NetworkGetNetworkIdFromEntity(container),
         coords = vector3(coords.x, coords.y, coords.z),
         heading = heading,
         target = vector3(target.x, target.y, target.z)
     }
-    if not ox_inventory:GetInventory('container_'..uuid) then
-        ox_inventory:RegisterStash('container_'..uuid, 'Container', Config.containerSlots, Config.containerWeight, nil, nil, target)
+    if not ox_inventory:GetInventory('container_'..id) then
+        ox_inventory:RegisterStash('container_'..id, 'Container', Config.containerSlots, Config.containerWeight, nil, nil, target)
     end
 end
 
@@ -30,14 +30,14 @@ local function loadContainers()
     if not response then return end
 
     for k, v in pairs(response) do
-        local uuid = tonumber(v.uuid) or nil
+        local id = tonumber(v.id) or nil
         local label = tostring(v.label) or nil
         local coords = json.decode(v.coords)
         local heading = tonumber(v.heading) or 0
         local target = json.decode(v.target)
 
-        if not Containers[uuid] then
-            spawnContainer(uuid, label, coords, heading, target)
+        if not Containers[id] then
+            spawnContainer(id, label, coords, heading, target)
         end
     end
     lib.print.info('Loaded '..#response..' containers from the database')
@@ -85,7 +85,7 @@ local function validateData(source, data)
 end
 
 local function afterSave(src, newRow)
-    local response = MySQL.query.await('SELECT `uuid`, `coords`, `label` FROM `pan_containers` where `id` = ?', {newRow})
+    local response = MySQL.query.await('SELECT `id`, `coords`, `label` FROM `pan_containers` where `id` = ?', {newRow})
     local keydata = table.unpack(response)
 
     -- Remove the gps
@@ -93,7 +93,7 @@ local function afterSave(src, newRow)
 
     -- Create a key
     local keymetadata = {
-        uuid = keydata.uuid,
+        id = keydata.id,
         coords = keydata.coords,
         keylabel = string.gsub(keydata.label, '\"', '')
     }
@@ -143,8 +143,8 @@ local createItemHook = ox_inventory:registerHook('createItem', function(payload)
     local metadata = payload.metadata
     local count = ox_inventory:Search(invId, 'count', 'containerkey', metadata)
 
-    if Containers[metadata.uuid] and count == 0 then
-        TriggerClientEvent('pan-containers:client:createtargets', payload.inventoryId, Containers[metadata.uuid])
+    if Containers[metadata.id] and count == 0 then
+        TriggerClientEvent('pan-containers:client:createtargets', payload.inventoryId, Containers[metadata.id])
     end
     return metadata
 end, {
@@ -160,14 +160,14 @@ local swapKeyHook = ox_inventory:registerHook('swapItems', function(payload)
     local fromInv = payload.fromInventory
     local toInv = payload.toInventory
     local count = ox_inventory:Search(src, 'count', 'containerkey', metadata)
-    if toInv == 'container_' .. tostring(metadata.uuid) then
+    if toInv == 'container_' .. tostring(metadata.id) then
         return false
     end
     if (fromInv == src and fromInv ~= toInv and count == 1) then --Moving the key out of inventory handling
-        TriggerClientEvent('pan-containers:client:removetargets', src, Containers[payload.fromSlot.metadata.uuid].entity)
+        TriggerClientEvent('pan-containers:client:removetargets', src, Containers[payload.fromSlot.metadata.id].entity)
         return true
     elseif (toInv == src and fromInv ~= toInv and count == 0) then --Moving the key into inventory handling
-        TriggerClientEvent('pan-containers:client:createtargets', src, Containers[payload.fromSlot.metadata.uuid])
+        TriggerClientEvent('pan-containers:client:createtargets', src, Containers[payload.fromSlot.metadata.id])
         return true
     end
     return true
@@ -201,19 +201,11 @@ RegisterNetEvent('pan-containers:server:loadcontainertargets', function(player)
     end
 
     local slots = ox_inventory:GetSlotsWithItem(src, 'containerkey')
-
-    local uniqueKeys = {}
-    local storedUUIDs = {}
-
-    for _, v in ipairs(slots) do
-        if not table.contains(storedUUIDs, v.metadata.uuid) then
-            storedUUIDs[#storedUUIDs+1] = v.metadata.uuid
-            uniqueKeys[#uniqueKeys+1] = v
+    for _, v in ipairs(slots) do                            -- Cycle all slots with keys
+        if not table.contains(list, v.metadata.id) then     -- Check if key is unique
+            list[#list+1] = v.metadata.id                   -- Add ID to stored table then initialize target for it
+            TriggerClientEvent('pan-containers:client:createtargets', src, Containers[v.metadata.id])
         end
-    end
-
-    for _, v in ipairs(storedUUIDs) do
-        TriggerClientEvent('pan-containers:client:createtargets', src, Containers[v])
     end
 end)
 
