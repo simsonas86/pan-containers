@@ -1,11 +1,13 @@
-CREATE TABLE IF NOT EXISTS `pan_containers` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uuid` int(11) NOT NULL DEFAULT floor(10000 + rand() * (99999 - 10000 + 1)),
-  `label` longtext DEFAULT NULL,
-  `coords` longtext DEFAULT NULL,
-  `heading` longtext DEFAULT NULL,
-  `target` longtext DEFAULT NULL,
-  `lastupdated` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`id`),
-  KEY `uuid` (`uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+CREATE TABLE `pan_containers` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`label` LONGTEXT NULL DEFAULT NULL COLLATE 'utf8mb3_general_ci',
+	`coords` LONGTEXT NULL DEFAULT NULL COLLATE 'utf8mb3_general_ci',
+	`heading` LONGTEXT NULL DEFAULT NULL COLLATE 'utf8mb3_general_ci',
+	`target` LONGTEXT NULL DEFAULT NULL COLLATE 'utf8mb3_general_ci',
+	`lastupdated` TIMESTAMP NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+	`isdeleted` TINYTEXT NOT NULL DEFAULT 'false' COLLATE 'utf8mb3_general_ci',
+	PRIMARY KEY (`id`) USING BTREE
+)
+COLLATE='utf8mb3_general_ci'
+ENGINE=InnoDB
+;
