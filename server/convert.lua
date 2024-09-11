@@ -28,10 +28,20 @@ local function ConvertOldInventories()
     MySQL.query('ALTER TABLE pan_containers DROP COLUMN `uuid`')
 end
 
-if GetConvar('pan:convert', 'false') == 'true' then
+if GetConvar('pan:debug', 'false') == 'true' then
     RegisterCommand('pan-containers:convert', function()
         if GetAllExistingUUIDs() then
             ConvertOldInventories()
         end
+    end)
+
+    RegisterCommand('pan-containers:convertKey', function(target, containerLabel)
+        --TODO: Convert all keys with matching label in target inventory to use IDs instead of UUIDs.
+        warn('This command has not been implemented yet!')
+    end)
+
+    RegisterCommand('pan-containers:isDeleted', function()
+        --TODO: Create database column `isdeleted`, prep for ability to delete containers in game.
+        warn('This command has not been implemented yet!')
     end)
 end
