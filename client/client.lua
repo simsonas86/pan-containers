@@ -496,17 +496,3 @@ end)
 lib.callback.register('pan-containers:isRaycastActive', function()
     return isRaycasting
 end)
-
--- Framework Dependant Events
-if Config.framework == 'ox' then
-    AddEventHandler('ox:playerLoaded', function()
-        TriggerServerEvent('pan-containers:server:loadcontainertargets', cache.serverId)
-    end)
-elseif Config.framework == 'qb' then
-    AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
-        TriggerServerEvent('pan-containers:server:loadcontainertargets', cache.serverId)
-    end)
-else
-    lib.print.error('No supported framework selected.')
-end
-

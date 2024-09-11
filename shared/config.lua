@@ -2,11 +2,10 @@ Config = {
 
     debug = true,
 
-    framework = 'qb',   -- Supported: 'ox' | 'qb'
     target = 'ox',      -- Supported: 'ox'
     inventory = 'ox',   -- Supported: 'ox'
 
-    containerModel = joaat('prop_container_05a'),
+    containerModel = joaat('prop_container_05a'),   --Technically changeable but might need slight tweaking in code right now
     cargobobModel = joaat('cargobob2'),
     pedModel = joaat('s_m_m_marine_01'),
 
@@ -19,7 +18,7 @@ Config = {
 
     keyCuttingCoords = vector3(169.81, -1799.71, 29.46),
 
-    drawColors = {
+    drawColors = {                          -- Colours for corner markers when placement is valid or invalid
         ['valid'] 	= { 80, 170, 50, 255 }, -- RGBA
         ['invalid'] = { 170, 80, 50, 255 }  -- RGBA
     }

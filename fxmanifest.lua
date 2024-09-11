@@ -21,7 +21,9 @@ client_script {
 
 server_script {
   '@oxmysql/lib/MySQL.lua',
-  'server/*.lua',
+  'server/framework.lua',
+  'server/server.lua',
+  'server/convert.lua'
 }
 
 shared_script {
@@ -30,7 +32,7 @@ shared_script {
 }
 
 files {
-  'locales/*.json'
+  'locales/*.json',
 }
 
 ox_lib 'locale'
