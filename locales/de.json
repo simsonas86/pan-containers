@@ -1,0 +1,13 @@
+{
+    "placement": "Platzierung bestätigen",
+    "cantPlace": "Hier kann nicht platziert werden. Hindernis gefunden. Versuchen Sie es erneut!",
+    "cancelled": "Abgebrochen",
+    "marked": "Wegpunkt gesetzt",
+    "unmarked": "Wegpunkt entfernt",
+    "player": "Spieler",
+    "inputUi": "[ LMB ] - Bestätigen  \n[ Scroll ] - Drehen  \n[ Shift ] - Langsamer drehen  \n [ ESC ] - Platzierung verlassen",
+    "label": "Schlüsselbeschriftung",
+    "placeholder": "z.B. Versteck 1",
+    "description": "Max. 15 Zeichen:",
+    "cheater": "Du dreckiger Betrüger!"
+}
