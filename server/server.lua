@@ -185,21 +185,16 @@ RegisterNetEvent('pan-containers:server:saveContainerData', function(data)
     saveContainerToDatabase(src, data)
 end)
 
-RegisterNetEvent('pan-containers:server:loadcontainers', function()
+RegisterNetEvent('pan-containers:server:loadContainers', function()
     local src = source
     loadContainers()
-    TriggerEvent('pan-containers:server:loadcontainertargets', src)
+    TriggerEvent('pan-containers:server:loadContainerTargets', src)
 end)
 
-RegisterNetEvent('pan-containers:server:loadcontainertargets', function(player)
-    print(source, player)
-    local src = nil
-    if player then
-        src = player
-    else
-        src = source
-    end
-
+RegisterNetEvent('pan-containers:server:loadContainerTargets', function(player)
+    local src = player or source
+    print('Triggered pan-containers:server:loadContainerTargets | src: ' .. tostring(src))
+    local list = {}
     local slots = ox_inventory:GetSlotsWithItem(src, 'containerkey')
     for _, v in ipairs(slots) do                            -- Cycle all slots with keys
         if not table.contains(list, v.metadata.id) then     -- Check if key is unique
