@@ -475,7 +475,7 @@ end)
 
 AddEventHandler('onResourceStart', function(resourceName)
     if (GetCurrentResourceName() ~= resourceName) then return end
-    if not Targets then TriggerServerEvent('pan-containers:server:loadContainerTargets') end
+    if next(Targets) == nil then TriggerServerEvent('pan-containers:server:loadContainerTargets') end
     ox_inventory:displayMetadata('keylabel', 'Label')
 end)
 
