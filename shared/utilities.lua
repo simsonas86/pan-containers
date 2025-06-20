@@ -1,4 +1,4 @@
-Utility = {
+local Utility = {
 	notify = function(title, description, type)
 		-- put your own notification system here if needed
 		-- example:
@@ -10,6 +10,6 @@ Utility = {
 			duration = 5000
 		})
 	end,
-
-
 }
+
+return Utility

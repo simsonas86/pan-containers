@@ -1,4 +1,4 @@
-Config = {
+local Config = {
 
     debug = true,
 
@@ -23,3 +23,5 @@ Config = {
         ['invalid'] = { 170, 80, 50, 255 }  -- RGBA
     }
 }
+
+return Config
